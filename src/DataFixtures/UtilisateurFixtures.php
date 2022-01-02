@@ -5,7 +5,7 @@ use Faker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Utilisateur;
-require_once 'vendor/autoload.php';
+
 
 
 
@@ -28,6 +28,8 @@ class UtilisateurFixtures extends Fixture
 
 
 
+
+
             $manager->persist($utilisateur);
         }
 
@@ -37,4 +39,4 @@ class UtilisateurFixtures extends Fixture
     }
 }
 
-#TODO date naissance, photo profil, ANNONCES,
+#TODO date naissance, photo profil, ANNONCES, commentaires
