@@ -7,7 +7,10 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Utilisateur;
 
 
-
+function conversion(string $nom): String
+{
+    return strtolower(strtr(iconv("UTF-8", "ASCII//TRANSLIT", $nom), ' ', '-'));
+}
 
 class UtilisateurFixtures extends Fixture
 {
@@ -15,14 +18,26 @@ class UtilisateurFixtures extends Fixture
     {
         $faker = Faker\Factory::create("fr_FR");
         for($i=1;$i<=10;$i++) {
+            $firstName = $faker->firstName();
+            $lastName = $faker->lastName();
+
+
             $utilisateur = new Utilisateur();
-            $utilisateur->setPrenom(" $faker->firstName");
-            $utilisateur->setNom(" $faker->lastName");
+            $utilisateur->setPrenom($firstName);
+            $utilisateur->setNom(" $lastName");
 
             $utilisateur->setBio(" $faker->text();");
-            $utilisateur->setEmail(" $faker->safeEmail");
+
             $utilisateur->setPassword(" $faker->password");
-            $utilisateur->setUsername(" $faker->userName");
+            $utilisateur->setRole(($i%3)."A");
+            $utilisateur->setDateNaissance("$faker->date");
+
+
+            $firstName = conversion($firstName);
+            $lastName = conversion($lastName);
+
+            $utilisateur->setEmail("{$firstName[0]}{$lastName}@centrale-marseille.fr");
+            $utilisateur->setUsername("{$firstName[0]}{$lastName}");
 
 
 

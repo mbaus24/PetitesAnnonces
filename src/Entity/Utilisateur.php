@@ -27,10 +27,6 @@ class Utilisateur
      */
     private $prenom;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,6 +50,19 @@ class Utilisateur
      * @ORM\Column(type="string", length=255)
      */
     private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Role;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $DateNaissance;
+
+
 
 
     public function getId(): ?int
@@ -135,4 +144,30 @@ class Utilisateur
 
         return $this;
     }
+
+    public function getRole(): ?string
+    {
+        return $this->Role;
+    }
+
+    public function setRole(string $Role): self
+    {
+        $this->Role = $Role;
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?string
+    {
+        return $this->DateNaissance;
+    }
+
+    public function setDateNaissance(string $DateNaissance): self
+    {
+        $this->DateNaissance = $DateNaissance;
+
+        return $this;
+    }
+
+
 }
