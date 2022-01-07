@@ -13,7 +13,7 @@ class AnnoncesController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('annonces/index.html.twig', [
+        return $this->render('annonces/annonces.html.twig', [
             'controller_name' => 'AnnoncesController',
         ]);
     }
@@ -23,9 +23,11 @@ class AnnoncesController extends AbstractController
     public function home(): Response
     {
         return $this->render('annonces/home.html.twig', [
-            'controller_name' => 'AnnoncesController',
+            'Nom' => 'Baus',
+            "prenom"=>"Martin",
+
         ]);
     }
 }
 
-#TODO Architecture du site: / page d'acceuil; /annonces; /utilisateurs /create /profile
+#TODO Architecture du site: / page d'acceuil; /annonces; /utilisateurs /create /profile /recherche
