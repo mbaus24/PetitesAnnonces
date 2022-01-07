@@ -29,7 +29,7 @@ class UtilisateurFixtures extends Fixture
             $utilisateur->setBio(" $faker->text();");
 
             $utilisateur->setPassword(" $faker->password");
-            $utilisateur->setRole(($i%3)."A");
+            $utilisateur->setRole(($i%3 +1)."A");
             $utilisateur->setDateNaissance("$faker->date");
 
 
