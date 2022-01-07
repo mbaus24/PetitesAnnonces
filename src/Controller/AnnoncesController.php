@@ -23,7 +23,7 @@ class AnnoncesController extends AbstractController
     public function home(): Response
     {
         return $this->render('annonces/home.html.twig', [
-            'Nom'=>'Martin Baus'
+            'controller_name' => 'AnnoncesController',
         ]);
     }
 }
