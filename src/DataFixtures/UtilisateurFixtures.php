@@ -4,6 +4,9 @@ namespace App\DataFixtures;
 use Faker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+
 use App\Entity\Annonce;
 use App\Entity\Comment;
 use App\Entity\Utilisateur;
@@ -15,7 +18,7 @@ function conversion(string $nom): String
 
 class UtilisateurFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create("fr_FR");
         for($i=1;$i<=50;$i++) {
@@ -57,6 +60,8 @@ class UtilisateurFixtures extends Fixture
 
         $manager->flush();
     }
+
+
 }
 
 #TODO date naissance, photo profil, ANNONCES, commentaires

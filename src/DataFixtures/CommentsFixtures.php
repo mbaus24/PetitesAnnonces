@@ -4,23 +4,28 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Annonce;
 use App\Entity\Comment;
 use App\Entity\Utilisateur;
 use Faker;
 
-class CommentsFixtures extends Fixture
+class CommentsFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $utilisateur = $manager->getRepository(Utilisateur::class)->findAll();
-        $annonce = $manager->getRepository(Annonce::class)->findAll();
+        $query = $manager->createQuery('SELECT u FROM App\Entity\Utilisateur u');
+        $utilisateur = $query->getResult();
+
+        $query = $manager->createQuery('SELECT u FROM App\Entity\Annonce u');
+        $annonce = $query->getResult();
+
         $faker = Faker\Factory::create("fr_FR");
         for ($i = 1; $i <= 10; $i++) {
             $comment = new Comment();
-            $comment->setAuthor($utilisateur[rand(0,sizeof($utilisateur)-1)])
+            $comment->setAuthor($faker->randomElement($utilisateur))
                     ->setDate(new \DateTime())
-                    ->setAnnonce($annonce[rand(0,sizeof($annonce)-1)])
+                    ->setAnnonce($faker->randomElement($annonce))
                     ->setContent($faker->text);
 
 
@@ -28,5 +33,11 @@ class CommentsFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return[UtilisateurFixtures::class,AnnonceFixture::class];
+
     }
 }
