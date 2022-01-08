@@ -73,13 +73,13 @@
                                 <i class="material-icons">add_circle</i> <span>Nouvelle annonce</span>
                             </a>
                         </li>
-                        <li {% if app.request.pathInfo starts with "/utilisateurs" %}class="active"{% endif %}>
-                            <a href="/utilisateurs">
+                        <li {% if app.request.pathInfo starts with "/users" %}class="active"{% endif %}>
+                            <a href="/users">
                                 <i class="material-icons">person</i> <span>Utilisateurs</span>
                             </a>
                         </li>
-                        <li {% if app.request.pathInfo starts with "/recherche" %}class="active"{% endif %}>
-                            <a href="/recherche">
+                        <li {% if app.request.pathInfo starts with "/search" %}class="active"{% endif %}>
+                            <a href="/search">
                                 <i class="material-icons">search</i> <span>Recherche personalisée</span>
                             </a>
                         </li>

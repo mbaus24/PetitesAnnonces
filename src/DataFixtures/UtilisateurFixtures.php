@@ -4,8 +4,9 @@ namespace App\DataFixtures;
 use Faker;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use App\Entity\Annonce;
+use App\Entity\Comment;
 use App\Entity\Utilisateur;
-
 
 function conversion(string $nom): String
 {
@@ -14,12 +15,12 @@ function conversion(string $nom): String
 
 class UtilisateurFixtures extends Fixture
 {
-    public function load(ObjectManager $manager): void
+    public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create("fr_FR");
-        for($i=1;$i<=10;$i++) {
-            $firstName = $faker->firstName();
-            $lastName = $faker->lastName();
+        for($i=1;$i<=50;$i++) {
+            $firstName = $faker->firstName;
+            $lastName = $faker->lastName;
 
 
             $utilisateur = new Utilisateur();
@@ -29,7 +30,7 @@ class UtilisateurFixtures extends Fixture
             $utilisateur->setBio(" $faker->text();");
 
             $utilisateur->setPassword(" $faker->password");
-            $utilisateur->setRole(($i%3 +1)."A");
+            $utilisateur->setPromo((mt_rand(1,4))."A");
             $utilisateur->setDateNaissance("$faker->date");
 
 
@@ -38,6 +39,10 @@ class UtilisateurFixtures extends Fixture
 
             $utilisateur->setEmail("{$firstName[0]}{$lastName}@centrale-marseille.fr");
             $utilisateur->setUsername("{$firstName[0]}{$lastName}");
+
+            $utilisateur->setRoles($faker->creditCardDetails);
+            $utilisateur->setRoles($faker->creditCardDetails);
+            $utilisateur->setProfilepicture($faker->imageUrl());
 
 
 

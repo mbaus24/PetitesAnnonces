@@ -22,11 +22,51 @@ class AnnoncesController extends AbstractController
      */
     public function home(): Response
     {
-        return $this->render('annonces/home.html.twig', [
+        return $this->render('home.html.twig', [
             'Nom' => 'Baus',
             "prenom"=>"Martin",
 
         ]);
+
+    }
+
+    /**
+     * @Route("/create", name="create")
+     */
+    public function create(): Response
+    {
+        return $this->render('annonces/create.html.twig', [
+            'Nom' => 'Baus',
+            "prenom"=>"Martin",
+
+        ]);
+
+    }
+
+    /**
+     * @Route("/users", name="users")
+     */
+    public function users(): Response
+    {
+        return $this->render('annonces/users.html.twig', [
+            'Nom' => 'Baus',
+            "prenom"=>"Martin",
+
+        ]);
+
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(): Response
+    {
+        return $this->render('annonces/search.html.twig', [
+            'Nom' => 'Baus',
+            "prenom"=>"Martin",
+
+        ]);
+
     }
 }
 

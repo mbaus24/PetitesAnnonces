@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,10 +38,6 @@ class Utilisateur
 
 
 
-    /**
-     * @ORM\Column(type="string", length=500)
-     */
-    private $bio;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,13 +52,45 @@ class Utilisateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Role;
+    private $Promo;
 
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $DateNaissance;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profilepicture;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $bio;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="autheur")
+     */
+    private $Annonces;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->Annonces = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
 
 
 
@@ -109,17 +139,6 @@ class Utilisateur
     }
 
 
-    public function getBio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setBio(string $bio): self
-    {
-        $this->bio = $bio;
-
-        return $this;
-    }
 
     public function getPassword(): ?string
     {
@@ -145,14 +164,14 @@ class Utilisateur
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getPromo(): ?string
     {
-        return $this->Role;
+        return $this->Promo;
     }
 
-    public function setRole(string $Role): self
+    public function setPromo(string $Promo): self
     {
-        $this->Role = $Role;
+        $this->Promo = $Promo;
 
         return $this;
     }
@@ -168,6 +187,103 @@ class Utilisateur
 
         return $this;
     }
+
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getProfilepicture(): ?string
+    {
+        return $this->profilepicture;
+    }
+
+    public function setProfilepicture(?string $profilepicture): self
+    {
+        $this->profilepicture = $profilepicture;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?string $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->Annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->Annonces->contains($annonce)) {
+            $this->Annonces[] = $annonce;
+            $annonce->setAutheur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->Annonces->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getAutheur() === $this) {
+                $annonce->setAutheur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }
