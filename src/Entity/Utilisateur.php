@@ -7,8 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ * @UniqueEntity(
+     *     fields={"email", "username", "password"},
+ *     errorPath="email",
+ *     message="Le mail que vous avez entré est déjà associé à un compte. Essayez de vous connectrer avec ce compte"
+ *     errorPath="username",
+ *     message="ce nom d'utilisateur est déjà pris, choisissez-en un autre ou essayez de vous connecter"
+ *     errorPath="password",
+ *     message="this password is already used by starboy 98. Try another."
+ * )
  */
 class Utilisateur
 {

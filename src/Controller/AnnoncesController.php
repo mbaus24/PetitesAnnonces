@@ -70,4 +70,4 @@ class AnnoncesController extends AbstractController
     }
 }
 
-#TODO Architecture du site: / page d'acceuil; /annonces; /utilisateurs /create /profile /recherche
+#TODO Reorganiser Architecture du site: / page d'acceuil; /annonces; /utilisateurs /create /profile /recherche
