@@ -4,14 +4,15 @@ namespace App\DataFixtures;
 
 
 
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-use App\Entity\Annonce;
+use App\Entity\Ad;
 use App\Entity\Comment;
-use App\Entity\Utilisateur;
+
 use Faker;
 
 class AnnonceFixture extends Fixture implements DependentFixtureInterface
@@ -19,16 +20,16 @@ class AnnonceFixture extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
 
-        $query = $manager->createQuery('SELECT u FROM App\Entity\Utilisateur u');
+        $query = $manager->createQuery('SELECT u FROM App\Entity\User u');
         $utilisateur = $query->getResult();
 
         $faker = Faker\Factory::create("fr_FR");
         for ($i = 1; $i <= 10; $i++) {
 
-            $annonce = new Annonce();
+            $annonce = new Ad();
 
             $annonce->setDate($faker->dateTimeBetween('-6 months'))
-                ->setAutheur($faker->randomElement($utilisateur))
+                ->setAuthor($faker->randomElement($utilisateur))
                 ->setDescription($faker->realText)
                 ->setLocation($faker->city)
                 ->setResolved($faker->boolean)
@@ -49,7 +50,7 @@ class AnnonceFixture extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            UtilisateurFixtures::class
+            UserFixtures::class
         ];
     }
 }
