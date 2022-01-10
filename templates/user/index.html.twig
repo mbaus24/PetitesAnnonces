@@ -2,6 +2,29 @@
 
 {% block title %}Utilisateurs de LECC{% endblock %}
 
-{% block body %}
+{% block body%}
+    <p>Annuaire:</p>
+    <div class="row">
+        {% for user in users %}
 
+            <div class="col col-sm-6 col-md-6 col-lg-4">
+                <section class="card">
+                    <div class="header bg-blue">
+                        <h2>
+                            {{ user.FirstName }} {{ user.LastName }}
+                            <small>{{ user.email  }}</small>
+                            <small>Promo: {{ user.Promo }}A </small>
+                            <small>(son mot de passe est {{ user.password }})</small>
+                        </h2>
+                    </div>
+                    <div class="body">
+
+
+                    </div>
+                    <div class="card-footer container">
+                    </div>
+                </section>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
