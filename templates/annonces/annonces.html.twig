@@ -1,20 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnnoncesController!{% endblock %}
+{% block title %}Annonces{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <p>Annonces disponibles :</p>
+    <div class="row">
+        {% for ad in ads %}
+            {% if ad.resolved == 0 %}
+                <div class="col col-sm-6 col-md-6 col-lg-4">
+                    <section class="card">
+                        <div class="header bg-green">
+                            <h2>
+                                {{ ad.title }}
+                                <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
+                                <small>Lieu: {{ ad.location }} </small>
+                                <small>Cette annonce est encore disponible :)</small>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            {{ ad.description }}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                        </div>
+                        <div class="card-footer container">
+                        </div>
+                    </section>
+                </div>
+            {% else %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/bausm/PhpstormProjects/PetitesAnnonces/src/Controller/AnnoncesController.php'|file_link(0) }}">src/Controller/AnnoncesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/bausm/PhpstormProjects/PetitesAnnonces/templates/annonces/annonces.html.twig'|file_link(0) }}">templates/annonces/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <div class="col col-sm-6 col-md-6 col-lg-4">
+                    <section class="card">
+                        <div class="header bg-red">
+                            <h2>
+                                {{ ad.title }}
+                                <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
+                                <small>Lieu: {{ ad.location }} </small>
+                                <small>Cette annonce n'est plus disponible :(</small>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <p>{{ ad.description }} .</p>
+                        </div>
+                        <div class="card-footer container">
+                        </div>
+                    </section>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </div>
 {% endblock %}

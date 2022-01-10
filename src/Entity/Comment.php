@@ -17,43 +17,41 @@ class Comment
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Ad::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ad;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $date;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=annonce::class, inversedBy="comments")
-     */
-    private $annonce;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=utilisateur::class, inversedBy="comments")
-     */
-    private $author;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-
-    public function getDate(): ?\DateTimeInterface
+    public function getAd(): ?Ad
     {
-        return $this->date;
+        return $this->ad;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setAd(?Ad $ad): self
     {
-        $this->date = $date;
+        $this->ad = $ad;
 
         return $this;
     }
@@ -70,26 +68,26 @@ class Comment
         return $this;
     }
 
-    public function getAnnonce(): ?annonce
-    {
-        return $this->annonce;
-    }
-
-    public function setAnnonce(?annonce $annonce): self
-    {
-        $this->annonce = $annonce;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?utilisateur
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?utilisateur $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

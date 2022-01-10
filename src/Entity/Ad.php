@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\AnnonceRepository;
+use App\Repository\AdRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=AnnonceRepository::class)
+ * @ORM\Entity(repositoryClass=AdRepository::class)
  */
-class Annonce
+class Ad
 {
     /**
      * @ORM\Id
@@ -18,6 +18,12 @@ class Annonce
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,12 +36,12 @@ class Annonce
     private $resolved;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $location;
 
@@ -50,12 +56,7 @@ class Annonce
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="Annonces")
-     */
-    private $autheur;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="ad", orphanRemoval=true)
      */
     private $comments;
 
@@ -64,10 +65,21 @@ class Annonce
         $this->comments = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -99,7 +111,7 @@ class Annonce
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -111,7 +123,7 @@ class Annonce
         return $this->location;
     }
 
-    public function setLocation(?string $location): self
+    public function setLocation(string $location): self
     {
         $this->location = $location;
 
@@ -142,18 +154,6 @@ class Annonce
         return $this;
     }
 
-    public function getAutheur(): ?Utilisateur
-    {
-        return $this->autheur;
-    }
-
-    public function setAutheur(?Utilisateur $autheur): self
-    {
-        $this->autheur = $autheur;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Comment[]
      */
@@ -166,7 +166,7 @@ class Annonce
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setAnnonce($this);
+            $comment->setAd($this);
         }
 
         return $this;
@@ -176,13 +176,11 @@ class Annonce
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getAnnonce() === $this) {
-                $comment->setAnnonce(null);
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
             }
         }
 
         return $this;
     }
-
-
 }

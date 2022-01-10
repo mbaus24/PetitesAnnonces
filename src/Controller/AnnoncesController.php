@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Ad;
+use App\Repository\AdRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +16,7 @@ class AnnoncesController extends AbstractController
     public function index(): Response
     {
         return $this->render('annonces/annonces.html.twig', [
-            'controller_name' => 'AnnoncesController',
+            "ads" => $this->getDoctrine()->getRepository(Ad::class)->findAll()
         ]);
     }
     /**
@@ -43,18 +45,7 @@ class AnnoncesController extends AbstractController
 
     }
 
-    /**
-     * @Route("/users", name="users")
-     */
-    public function users(): Response
-    {
-        return $this->render('annonces/users.html.twig', [
-            'Nom' => 'Baus',
-            "prenom"=>"Martin",
 
-        ]);
-
-    }
 
     /**
      * @Route("/search", name="search")

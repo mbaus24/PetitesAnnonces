@@ -7,16 +7,16 @@ use Doctrine\Persistence\ObjectManager;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-use App\Entity\Annonce;
+use App\Entity\Ad;
 use App\Entity\Comment;
-use App\Entity\Utilisateur;
+use App\Entity\User;
 
 function conversion(string $nom): String
 {
     return strtolower(strtr(iconv("UTF-8", "ASCII//TRANSLIT", $nom), ' ', '-'));
 }
 
-class UtilisateurFixtures extends Fixture
+class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
@@ -26,15 +26,15 @@ class UtilisateurFixtures extends Fixture
             $lastName = $faker->lastName;
 
 
-            $utilisateur = new Utilisateur();
-            $utilisateur->setPrenom($firstName);
-            $utilisateur->setNom(" $lastName");
+            $utilisateur = new User();
+            $utilisateur->setFirstName($firstName);
+            $utilisateur->setLastName(" $lastName");
 
-            $utilisateur->setBio(" $faker->text();");
+            //$utilisateur->setBio(" $faker->text();");
 
             $utilisateur->setPassword(" $faker->password");
-            $utilisateur->setPromo((mt_rand(1,4))."A");
-            $utilisateur->setDateNaissance("$faker->date");
+            $utilisateur->setPromo((mt_rand(1,4)));
+            //$utilisateur->setDateNaissance("$faker->date");
 
 
             $firstName = conversion($firstName);
@@ -43,9 +43,9 @@ class UtilisateurFixtures extends Fixture
             $utilisateur->setEmail("{$firstName[0]}{$lastName}@centrale-marseille.fr");
             $utilisateur->setUsername("{$firstName[0]}{$lastName}");
 
-            $utilisateur->setRoles($faker->creditCardDetails);
-            $utilisateur->setRoles($faker->creditCardDetails);
-            $utilisateur->setProfilepicture($faker->imageUrl());
+            $utilisateur->setRoles($faker->streetAddress);
+
+            //$utilisateur->setProfilepicture($faker->imageUrl());
 
 
 
