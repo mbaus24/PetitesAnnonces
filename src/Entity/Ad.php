@@ -60,6 +60,9 @@ class Ad
      */
     private $comments;
 
+
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ user.Firstname }}{{user.Lastname }} {% endblock %}
+{% set cpt=0 %}
+{%block body%}
+<!-- Test si user a écrit au moins un article -->
+
+ {% for ad in ads %}
+  {% if ad.author.id == user.id%}
+   {% set cpt=1%}
+  {% endif %}
+ {% endfor %}
+
+
+ {% if cpt ==0 %}
+ <h2>{{ user.Firstname }}{{ user.Lastname }} n'a pas encore crée d'annonces :/</h2>
+
+
+ {% else %}
+<h2>Annonces crées par {{ user.Firstname }}{{ user.Lastname }} :</h2>
+ {% for ad in ads %}
+
+
+  {% if ad.author.id == user.id%}
+   <div class="col col-sm-6 col-md-6 col-lg-4">
+    <section class="card">
+     <div class="header bg-green">
+      <h2>
+       {{ ad.title }}
+       <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
+
+       <small>Lieu: {{ ad.location }} </small>
+       <small>Cette annonce est encore disponible :)</small>
+      </h2>
+     </div>
+     <div class="body">
+      {{ ad.description }}
+
+     </div>
+     <div class="card-footer container">
+     </div>
+    </section>
+   </div>
+
+  {% endif %}
+
+ {% endfor %}
+
+ {% endif %}
+
+{% endblock %}

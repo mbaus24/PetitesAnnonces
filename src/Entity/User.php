@@ -78,11 +78,23 @@ class User
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $profilepicture;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $bio;
+
     public function __construct()
     {
         $this->ads = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -241,6 +253,30 @@ class User
                 $comment->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfilepicture(): ?string
+    {
+        return $this->profilepicture;
+    }
+
+    public function setProfilepicture(string $profilepicture): self
+    {
+        $this->profilepicture = $profilepicture;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(string $bio): self
+    {
+        $this->bio = $bio;
 
         return $this;
     }

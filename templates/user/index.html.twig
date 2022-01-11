@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Utilisateurs de LECC{% endblock %}
 
 {% block body%}
@@ -9,16 +10,17 @@
 
             <div class="col col-sm-6 col-md-6 col-lg-4">
                 <section class="card">
+                    <img src="{{ user.profilepicture }}" alt="Avatar" style="width:100%">
                     <div class="header bg-blue">
                         <h2>
-                            {{ user.FirstName }} {{ user.LastName }}
+                            <a href="users/{{ user.id }}"> {{ user.FirstName }} {{ user.LastName }} </a>
                             <small>{{ user.email  }}</small>
                             <small>Promo: {{ user.Promo }}A </small>
-                            <small>(son mot de passe est {{ user.password }})</small>
+                            <small>(son mot de passe est <b>{{ user.password }}</b>)</small>
                         </h2>
                     </div>
                     <div class="body">
-
+                        {{ user.bio}}
 
                     </div>
                     <div class="card-footer container">

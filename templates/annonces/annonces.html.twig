@@ -3,16 +3,18 @@
 {% block title %}Annonces{% endblock %}
 
 {% block body %}
-    <p>Annonces disponibles :</p>
-    <div class="row">
+    <h2>Annonces disponibles:</h2>
+
         {% for ad in ads %}
             {% if ad.resolved == 0 %}
-                <div class="col col-sm-6 col-md-6 col-lg-4">
+
+                <div class="col col-sm-10 col-md-10 col-lg-12">
                     <section class="card">
                         <div class="header bg-green">
                             <h2>
                                 {{ ad.title }}
                                 <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
+
                                 <small>Lieu: {{ ad.location }} </small>
                                 <small>Cette annonce est encore disponible :)</small>
                             </h2>
@@ -25,7 +27,13 @@
                         </div>
                     </section>
                 </div>
-            {% else %}
+
+            {% endif %}
+
+        {% endfor %}
+    <h2>Annonces plus disponibles:</h2>
+        {% for ad in ads %}
+            {% if ad.resolved == 1 %}
 
                 <div class="col col-sm-6 col-md-6 col-lg-4">
                     <section class="card">

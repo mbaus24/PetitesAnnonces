@@ -21,15 +21,15 @@ class AnnonceFixture extends Fixture implements DependentFixtureInterface
     {
 
         $query = $manager->createQuery('SELECT u FROM App\Entity\User u');
-        $utilisateur = $query->getResult();
+        $user = $query->getResult();
 
         $faker = Faker\Factory::create("fr_FR");
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
 
             $annonce = new Ad();
 
             $annonce->setDate($faker->dateTimeBetween('-6 months'))
-                ->setAuthor($faker->randomElement($utilisateur))
+                ->setAuthor($faker->randomElement($user))
                 ->setDescription($faker->realText)
                 ->setLocation($faker->city)
                 ->setResolved($faker->boolean)

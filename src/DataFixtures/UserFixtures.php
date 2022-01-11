@@ -21,39 +21,39 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create("fr_FR");
-        for($i=1;$i<=50;$i++) {
+        for($i=1;$i<=100;$i++) {
             $firstName = $faker->firstName;
             $lastName = $faker->lastName;
 
 
-            $utilisateur = new User();
-            $utilisateur->setFirstName($firstName);
-            $utilisateur->setLastName(" $lastName");
+            $user = new User();
+            $user->setFirstName($firstName);
+            $user->setLastName(" $lastName");
 
-            //$utilisateur->setBio(" $faker->text();");
+            $user->setBio(" $faker->realText();");
 
-            $utilisateur->setPassword(" $faker->password");
-            $utilisateur->setPromo((mt_rand(1,4)));
+            $user->setPassword(" $faker->password");
+            $user->setPromo((mt_rand(1,4)));
             //$utilisateur->setDateNaissance("$faker->date");
 
 
             $firstName = conversion($firstName);
             $lastName = conversion($lastName);
 
-            $utilisateur->setEmail("{$firstName[0]}{$lastName}@centrale-marseille.fr");
-            $utilisateur->setUsername("{$firstName[0]}{$lastName}");
+            $user->setEmail("{$firstName[0]}{$lastName}@centrale-marseille.fr");
+            $user->setUsername("{$firstName[0]}{$lastName}");
 
-            $utilisateur->setRoles($faker->streetAddress);
+            $user->setRoles($faker->streetAddress);
 
-            //$utilisateur->setProfilepicture($faker->imageUrl());
-
-
+            $user->setProfilepicture("https://fakeface.rest/face/view/".$i*rand(0,1000));
 
 
 
 
 
-            $manager->persist($utilisateur);
+
+
+            $manager->persist($user);
         }
 
 

@@ -15,15 +15,15 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $query = $manager->createQuery('SELECT u FROM App\Entity\User u');
-        $utilisateur = $query->getResult();
+        $user = $query->getResult();
 
         $query = $manager->createQuery('SELECT u FROM App\Entity\Ad u');
         $annonce = $query->getResult();
 
         $faker = Faker\Factory::create("fr_FR");
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             $comment = new Comment();
-            $comment->setAuthor($faker->randomElement($utilisateur))
+            $comment->setAuthor($faker->randomElement($user))
                     ->setDate(new \DateTime())
                     ->setAd($faker->randomElement($annonce))
                     ->setContent($faker->text);
