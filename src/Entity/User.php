@@ -94,6 +94,9 @@ class User
         $this->comments = new ArrayCollection();
     }
 
+    public function __toString(){
+        return $this->getBio();
+    }
 
 
     public function getId(): ?int

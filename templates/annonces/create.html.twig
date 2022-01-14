@@ -1,1 +1,36 @@
 {% extends 'base.html.twig' %}
+{% block page_css %}
+    <link rel="stylesheet" type="text/css" href="assets/styles/app.css" />
+{% endblock %}
+{% block head %}
+<head>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border-radius: 5px; /* 5px rounded corners */
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+        .card img {
+            border-top-right-radius: 0;
+            border-bottom-left-radius: calc(0.25rem - 1px);
+        }
+    </style>
+</head>
+{% endblock %}
+{% block body %}
+
+    <div class="card" style="width: 18rem;">
+        <img src="https://baconmockup.com/640/360" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-title">Card title</p>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+{% endblock %}

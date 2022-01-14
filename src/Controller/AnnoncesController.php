@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Entity\Comment;
+use App\Entity\User;
 use App\Repository\AdRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class AnnoncesController extends AbstractController
 {
     /**
-     * @Route("/annonces", name="annonces")
+     * @Route("/ads", name="ads")
      */
     public function index(): Response
     {
@@ -55,6 +58,24 @@ class AnnoncesController extends AbstractController
         return $this->render('annonces/search.html.twig', [
             'Nom' => 'Baus',
             "prenom"=>"Martin",
+
+        ]);
+
+    }
+
+
+    /**
+     * @Route("/ads/{ad_id}", name="ads_show")
+     * @ParamConverter("ad", options={"id" = "ad_id"})
+     * @ParamConverter("users", options={"id" = "user_id"})
+     */
+    public function show(Ad $ad){
+
+
+        return $this->render('annonces/show.html.twig', [
+            "ad" => $ad,
+            "users" => $this->getDoctrine()->getRepository(User::class)->findAll(),
+            "comments" => $this->getDoctrine()->getRepository(Comment::class)->findAll(),
 
         ]);
 

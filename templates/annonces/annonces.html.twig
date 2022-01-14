@@ -10,9 +10,14 @@
 
                 <div class="col col-sm-10 col-md-10 col-lg-12">
                     <section class="card">
+                        <div class="img_left">
+
+
+                        </div>
                         <div class="header bg-green">
+
                             <h2>
-                                {{ ad.title }}
+                                <a href="ads/{{ ad.id }}"> {{ ad.title }}</a>
                                 <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
 
                                 <small>Lieu: {{ ad.location }} </small>
@@ -39,7 +44,7 @@
                     <section class="card">
                         <div class="header bg-red">
                             <h2>
-                                {{ ad.title }}
+                                <a href="ads/{{ ad.id }}"> {{ ad.title }}</a>
                                 <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
                                 <small>Lieu: {{ ad.location }} </small>
                                 <small>Cette annonce n'est plus disponible :(</small>

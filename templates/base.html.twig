@@ -10,9 +10,11 @@
         <meta name="Copyright" content="GINFO">
         <meta name="Revisit-After" content="15 days">
         <title>{% block titre_page %}LeBonCoinCentralien{% endblock %}</title>
-        <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
+        <link rel="icon" type="image/jpg" href="{{ asset('C:\Users\bausm\Desktop\lbcc-logo-header-retina.jpg') }}" />
         <link rel="stylesheet" href="{{ asset('build/vendor.css') }}" />
         <link rel="stylesheet" href="{{ asset('build/app.css') }}" />
+        {% block head %}
+        {% endblock %}
         {% block page_css %}
         {% endblock %}
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -20,6 +22,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
+
     </head>
 
     <body {% block additionnal_body_block %}{% endblock %} class="theme-green {% block additionnal_body_class %}{% endblock %}">
@@ -35,6 +38,7 @@
                     {% endif %}
 
                     <a class="navbar-brand" href="/">
+                        <img src="public/build/images/lbcc-logo-header-retina.jpg">
                         Le Bon Coin Centralien
                     </a>
 
@@ -63,8 +67,8 @@
                 <div class="menu">
                     <ul class="list">
                         <li class="header">Menu</li>
-                        <li {% if app.request.pathInfo starts with "/annonces" %}class="active"{% endif %}>
-                            <a href="/annonces">
+                        <li {% if app.request.pathInfo starts with "/ads" %}class="active"{% endif %}>
+                            <a href="/ads">
                                 <i class="material-icons">feed</i> <span>Annonces</span>
                             </a>
                         </li>

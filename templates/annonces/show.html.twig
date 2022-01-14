@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% set cpt=0 %}
+{%block body%}
+    <!-- Test si il y a un comment sur l'article -->
+
+    {% for comment in comments %}
+        {% if comment.ad.id == ad.id%}
+            {% set cpt=1%}
+        {% endif %}
+    {% endfor %}
+
+
+    {% if cpt ==0 %}
+        <h2>L'annonce n'a pas encore de commentaires</h2>
+
+
+    {% else %}
+        <h2>Commentaires de l'annonce</h2>
+        {% for comment in comments %}
+
+
+            {% if comment.ad.id == ad.id%}
+                <div class="col col-sm-6 col-md-6 col-lg-4">
+                    <section class="card">
+                        <div class="header bg-purple">
+                            <h2>
+
+                                <small>publié le  {{ comment.date | date("d/m/Y") }}</small>
+
+                                {%for user in users %}
+                                    {% if user.id == comment.author.id %}
+                                        <a href="http://localhost:8000/users/{{ user.id }}"> <small>par {{ user.firstName }}{{ user.lastName}} </small></a>
+                                    {% endif %}
+
+                                {% endfor %}
+
+
+                                <small></small>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            {{ comment.content }}
+
+                        </div>
+                        <div class="card-footer container">
+                        </div>
+                    </section>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}

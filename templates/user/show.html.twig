@@ -25,7 +25,7 @@
     <section class="card">
      <div class="header bg-green">
       <h2>
-       {{ ad.title }}
+       <a href="http://localhost:8000/ads/{{ ad.id }}"> {{ ad.title }}</a>
        <small>crée le  {{ ad.date | date("d/m/Y") }}</small>
 
        <small>Lieu: {{ ad.location }} </small>
